@@ -25,13 +25,19 @@ namespace FlappyBird
                 // Flap the bird
                 bird.Flap();
             }
-            if(Input.GetKey(KeyCode.UpArrow))
+            // Are there columns to move?
+            if(Bird.columns.Count > 0)
             {
-                bird.MoveColumn(true);
-            }
-            if (Input.GetKey(KeyCode.DownArrow))
-            {
-                bird.MoveColumn(false);
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    // move column up
+                    bird.MoveColumn(true);
+                }
+                if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    // move column down
+                    bird.MoveColumn(false);
+                }
             }
         }
     }

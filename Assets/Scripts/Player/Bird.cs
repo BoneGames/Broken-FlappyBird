@@ -24,7 +24,6 @@ namespace FlappyBird
 
         private void Update()
         {
-            Debug.Log(rigid.velocity.y);
             transform.rotation = rigid.velocity.y > 0 ? up : rigid.velocity.y < -2 ? down : up;
             if(columns.Count > 0)
             {
@@ -38,14 +37,10 @@ namespace FlappyBird
 
         public void MoveColumn(bool up)
         {
-            if(columns.Count > 1)
-            {
-                Vector3 direction;
-                direction = up ? Vector3.up : Vector3.down;
-                columns[0].transform.Translate(direction * Time.deltaTime);
-            }
+            Vector3 direction;
+            direction = up ? Vector3.up : Vector3.down;
+            columns[0].transform.Translate(direction * Time.deltaTime);
         }
-
 
         public void Flap()
         {
