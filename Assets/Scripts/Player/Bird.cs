@@ -10,12 +10,42 @@ namespace FlappyBird
         public float upForce;           // Upward force of the "flap"
         private bool isDead = false;    // Has the player collider with the wall? 
         private Rigidbody2D rigid;
+        public float clickRotation;
+        Quaternion up, down;
+        public static List<GameObject> columns = new List<GameObject>();
 
         // Use this for initialization
         void Start()
         {
             rigid = GetComponent<Rigidbody2D>();
+            up = Quaternion.Euler(0, 0, clickRotation);
+            down = Quaternion.Euler(0, 0, -clickRotation);
         }
+
+        private void Update()
+        {
+            Debug.Log(rigid.velocity.y);
+            transform.rotation = rigid.velocity.y > 0 ? up : rigid.velocity.y < -2 ? down : up;
+            if(columns.Count > 0)
+            {
+                if(transform.position.x > columns[0].transform.position.x)
+                {
+                    columns.RemoveAt(0);
+                }
+            }
+            
+        }
+
+        public void MoveColumn(bool up)
+        {
+            if(columns.Count > 1)
+            {
+                Vector3 direction;
+                direction = up ? Vector3.up : Vector3.down;
+                columns[0].transform.Translate(direction * Time.deltaTime);
+            }
+        }
+
 
         public void Flap()
         {
